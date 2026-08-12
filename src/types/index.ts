@@ -73,7 +73,6 @@ export type Housing = {
   bedrooms: number;
   bathrooms: number;
   furnished: boolean;
-  image: string;
   features: string[];
   description: string;
   postedAt: string;
