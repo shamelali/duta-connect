@@ -1,0 +1,169 @@
+import type { Housing } from "@/types";
+import { getAuthor } from "./authors";
+
+export const housingTypes = [
+  { id: "kos", label: "Kos" },
+  { id: "apartemen", label: "Apartemen" },
+  { id: "rumah", label: "Rumah" },
+  { id: "roommate", label: "Cari Roommate" },
+  { id: "studio", label: "Studio" },
+];
+
+export const housingListings: Housing[] = [
+  {
+    id: "h1",
+    slug: "kos-nyaman-area-klcc",
+    title: "Kos Nyaman Strategis dekat KLCC",
+    type: "kos",
+    pricePerMonth: 1200,
+    location: "KLCC, Kuala Lumpur",
+    area: "Ampang",
+    bedrooms: 1,
+    bathrooms: 1,
+    furnished: true,
+    image:
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80",
+    features: ["AC", "WiFi", "Laundry", "24h Security", "Walking ke LRT"],
+    description:
+      "Kamar kos fully furnished di area premium KLCC. Jalan kaki 8 menit ke KLCC Park dan Suria KLCC. Cocok untuk profesional muda. Termasuk utilitas dasar dan WiFi.",
+    postedAt: "2025-07-22T02:00:00.000Z",
+    agent: getAuthor("siti"),
+  },
+  {
+    id: "h2",
+    slug: "apartemen-2-kamar-mont-kiara",
+    title: "Apartemen 2 Kamar Mewah di Mont Kiara",
+    type: "apartemen",
+    pricePerMonth: 3200,
+    location: "Mont Kiara, Kuala Lumpur",
+    area: "Mont Kiara",
+    bedrooms: 2,
+    bathrooms: 2,
+    furnished: true,
+    image:
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
+    features: ["Kolam Renang", "Gym", "AC", "Parking", "Taman Bermain", "Concierge"],
+    description:
+      "Unit apartemen modern di kondominium premium Mont Kiara. Fasilitas lengkap dengan kolam renang, gym, dan area BBQ. Lingkungan asri dengan banyak ekspatriat. Dekat dengan sekolah internasional.",
+    postedAt: "2025-07-20T04:30:00.000Z",
+    agent: getAuthor("hendra"),
+  },
+  {
+    id: "h3",
+    slug: "studio-modern-bangsar-south",
+    title: "Studio Modern Bangsar South",
+    type: "studio",
+    pricePerMonth: 1800,
+    location: "Bangsar South, Kuala Lumpur",
+    area: "Bangsar",
+    bedrooms: 0,
+    bathrooms: 1,
+    furnished: true,
+    image:
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80",
+    features: ["AC", "Kitchenette", "Gym", "Kolam Renang", "Walking ke MRT"],
+    description:
+      "Unit studio efisien dan modern di The Horizon Bangsar South. Ideal untuk single professional. Dekat perkantoran dan pusat kuliner. Akses langsung ke stasiun MRT Universiti.",
+    postedAt: "2025-07-19T01:00:00.000Z",
+    agent: getAuthor("maya"),
+  },
+  {
+    id: "h4",
+    slug: "rumah-teras-3-kamar-cheras",
+    title: "Rumah Teras 3 Kamar di Cheras",
+    type: "rumah",
+    pricePerMonth: 2400,
+    location: "Cheras, Kuala Lumpur",
+    area: "Cheras",
+    bedrooms: 3,
+    bathrooms: 2,
+    furnished: false,
+    image:
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80",
+    features: ["Carporch", "Taman", "4 Parkir", "Dekat Sekolah", "Unfurnished"],
+    description:
+      "Rumah teras luas di lingkungan keluarga Cheras. Cocok untuk keluarga dengan anak. Dekat dengan sekolah, pasar, dan akses mudah ke highway Cheras-Kajang (CKE).",
+    postedAt: "2025-07-18T05:45:00.000Z",
+    agent: getAuthor("hendra"),
+  },
+  {
+    id: "h5",
+    slug: "roommate-mid-valley-twin-sharing",
+    title: "Cari Roommate — Twin Sharing Mid Valley",
+    type: "roommate",
+    pricePerMonth: 900,
+    location: "Mid Valley, Kuala Lumpur",
+    area: "Mid Valley City",
+    bedrooms: 1,
+    bathrooms: 1,
+    furnished: true,
+    image:
+      "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1200&q=80",
+    features: ["AC", "WiFi", "Gym", "Kolam Renang", "Condo Living"],
+    description:
+      "Mencari roommate (WNI prefer) untuk twin sharing room di kondominium Mid Valley. Lingkungan bersih, fasilitas lengkap. Anda akan berbagi kamar dengan professional bersih dan tertib.",
+    postedAt: "2025-07-23T03:00:00.000Z",
+    agent: getAuthor("andi"),
+  },
+  {
+    id: "h6",
+    slug: "kos-murah-wangsa-maju",
+    title: "Kos Murah Area Wangsa Maju",
+    type: "kos",
+    pricePerMonth: 650,
+    location: "Wangsa Maju, Kuala Lumpur",
+    area: "Wangsa Maju",
+    bedrooms: 1,
+    bathrooms: 1,
+    furnished: true,
+    image:
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=80",
+    features: ["AC", "WiFi", "Laundry Bersama", "Dekat Kampus", "Dekat LRT"],
+    description:
+      "Kamar kos terjangkau di area banyak WNI Wangsa Maju. Jalan kaki ke stasiun LRT dan banyak warung Indonesia. Cocok untuk mahasiswa atau fresh graduate.",
+    postedAt: "2025-07-21T07:15:00.000Z",
+    agent: getAuthor("siti"),
+  },
+  {
+    id: "h7",
+    slug: "apartemen-serviced-kl-sentral",
+    title: "Serviced Apartment KL Sentral",
+    type: "apartemen",
+    pricePerMonth: 2600,
+    location: "KL Sentral, Kuala Lumpur",
+    area: "Brickfields",
+    bedrooms: 1,
+    bathrooms: 1,
+    furnished: true,
+    image:
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=80",
+    features: ["Housekeeping", "Concierge", "Gym", "Kolam Renang", "Stasiun Sentral"],
+    description:
+      "Serviced apartment premium di jantung transportasi KL Sentral. Akses langsung ke stasiun kereta, KLIA Ekspres, dan hub bisnis. Fasilitas hotel-grade dengan kenyamanan rumah.",
+    postedAt: "2025-07-17T02:40:00.000Z",
+    agent: getAuthor("maya"),
+  },
+  {
+    id: "h8",
+    slug: "rumah-banglo-setia-alam",
+    title: "Banglo 5 Kamar di Setia Alam",
+    type: "rumah",
+    pricePerMonth: 4500,
+    location: "Setia Alam, Shah Alam",
+    area: "Setia Alam",
+    bedrooms: 5,
+    bathrooms: 4,
+    furnished: false,
+    image:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+    features: ["2 Carporch", "Taman Luas", "24h Gated", "Dapur Modern", "Ruang Keluarga Besar"],
+    description:
+      "Banglo luas untuk keluarga besar di kawasan gated community Setia Alam. Lingkungan tenang, aman, dengan taman komunitas dan fasilitas klub. Akses mudah ke highway NKVE dan PLUS.",
+    postedAt: "2025-07-16T06:20:00.000Z",
+    agent: getAuthor("hendra"),
+  },
+];
+
+export function getHousingBySlug(slug: string): Housing | undefined {
+  return housingListings.find((h) => h.slug === slug);
+}
