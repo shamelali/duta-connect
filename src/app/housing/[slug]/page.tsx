@@ -1,13 +1,13 @@
 "use client";
 
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { housingListings } from "@/lib/data/housing";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { Breadcrumb, BackLink } from "@/components/ui/Primitives";
 import { SaveButton } from "@/components/ui/Feedback";
+import { HousingArt } from "@/components/ui/HousingArt";
 import { IconMapPin, IconCheck, IconClock } from "@/components/ui/Icons";
 import { housingTypeLabel } from "@/lib/jobUtils";
 import { formatCurrency, timeAgo } from "@/lib/utils";
@@ -27,17 +27,10 @@ export default function HousingDetailPage({ params }: { params: { slug: string }
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
         <div className="space-y-6">
-          {/* Image */}
+          {/* Illustration */}
           <div className="card overflow-hidden">
-            <div className="relative h-72 w-full bg-ink-100 sm:h-96">
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 65vw"
-                className="object-cover"
-              />
+            <div className="relative h-72 w-full sm:h-96">
+              <HousingArt type={item.type} label />
               <div className="absolute left-4 top-4 flex gap-2">
                 <Badge tone="gray" className="bg-white/90 backdrop-blur">
                   {housingTypeLabel(item.type)}

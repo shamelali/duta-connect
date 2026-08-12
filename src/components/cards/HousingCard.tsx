@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Housing } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { SaveButton } from "@/components/ui/Feedback";
 import { IconMapPin } from "@/components/ui/Icons";
+import { HousingArt } from "@/components/ui/HousingArt";
 import { housingTypeLabel } from "@/lib/jobUtils";
 import { formatCurrency } from "@/lib/utils";
 
@@ -13,13 +13,10 @@ export function HousingCard({ item }: { item: Housing }) {
       href={`/housing/${item.slug}`}
       className="card card-hover group flex flex-col overflow-hidden"
     >
-      <div className="relative h-44 w-full overflow-hidden bg-ink-100">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+      <div className="relative h-44 w-full overflow-hidden">
+        <HousingArt
+          type={item.type}
+          className="transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute left-3 top-3">
           <Badge tone="gray" className="bg-white/90 backdrop-blur">
