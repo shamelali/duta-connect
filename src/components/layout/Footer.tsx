@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { LogoMark } from "@/components/ui/Avatar";
-import {
-  IconPhone,
-  IconGlobe,
-  IconShield,
-} from "@/components/ui/Icons";
+import { IconGlobe, IconShield } from "@/components/ui/Icons";
 
 const footerLinks = [
   {
@@ -38,7 +34,7 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-ink-200 bg-white">
+    <footer className="border-t border-ink-200 bg-white">
       <div className="container py-14">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
@@ -55,10 +51,10 @@ export function Footer() {
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-                <IconShield className="h-3.5 w-3.5" /> Platform Terverifikasi
+                <IconShield className="h-3.5 w-3.5" /> Ruang saling bantu
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-3 py-1 text-xs font-semibold text-ink-600">
-                <IconUsers /> 12,000+ Anggota
+                <IconGlobe className="h-3.5 w-3.5" /> Konteks Malaysia
               </span>
             </div>
           </div>
@@ -103,23 +99,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  );
-}
-
-function IconUsers() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-3.5 w-3.5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.8}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1A4 4 0 0 1 16 11" />
-    </svg>
   );
 }

@@ -8,7 +8,7 @@ DUTA Connect is a production-grade community platform built for Indonesians livi
 
 | Module | Highlights |
 | --- | --- |
-| **Landing page** | Conversion-focused hero, live activity feed, featured content, testimonials, stats |
+| **Landing page** | Community-led hero, task-based journeys, featured discussions, career and visa discovery |
 | **Forum** | Category filtering, search, pinned threads, threaded replies, like/bookmark, create-thread flow |
 | **Jobs** | Category + type filters, remote toggle, search, salary ranges, verified badges, apply flow, scam-safety warning |
 | **Housing** | Type filters, budget slider, image cards, furnished/amenity tags, contact/tour actions |
@@ -31,7 +31,7 @@ DUTA Connect is a production-grade community platform built for Indonesians livi
 
 - **Framework:** Next.js 14 (App Router, TypeScript)
 - **Styling:** Tailwind CSS with a custom design-token theme
-- **Fonts:** Inter + Plus Jakarta Sans (via `next/font`)
+- **Fonts:** Self-hosted Inter + Plus Jakarta Sans variable fonts (via Fontsource)
 - **State:** React Context + `localStorage` persistence (no backend required)
 - **Data:** Typed seed modules under `src/lib/data`
 

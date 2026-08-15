@@ -19,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/visa",
     "/login",
     "/register",
+    "/privacy",
+    "/terms",
     "/dashboard",
   ].map((path) => ({
     url: `${BASE}${path}`,

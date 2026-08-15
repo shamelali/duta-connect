@@ -61,7 +61,7 @@ export function Navbar() {
           : "border-b border-transparent bg-white/60 backdrop-blur"
       )}
     >
-      <nav className="container flex h-16 items-center justify-between gap-4">
+      <nav className="container flex h-[72px] items-center justify-between gap-4">
         <Link
           href="/"
           className="flex shrink-0 items-center gap-2.5"
@@ -132,7 +132,7 @@ export function Navbar() {
                 Masuk
               </ButtonLink>
               <ButtonLink href="/register" size="sm">
-                Daftar Gratis
+                Gabung komunitas
               </ButtonLink>
             </div>
           )}
@@ -153,7 +153,7 @@ export function Navbar() {
       {open && (
         <div className="lg:hidden">
           <div
-            className="fixed inset-0 top-16 z-40 bg-ink-900/40 backdrop-blur-sm"
+            className="fixed inset-0 top-[72px] z-40 bg-ink-900/40 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
           <div className="animate-fade-up border-t border-ink-200 bg-white px-4 pb-6 pt-3 shadow-card-hover">
@@ -198,7 +198,7 @@ export function Navbar() {
                     Masuk
                   </ButtonLink>
                   <ButtonLink href="/register" size="sm">
-                    Daftar Gratis
+                    Gabung
                   </ButtonLink>
                 </>
               )}

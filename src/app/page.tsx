@@ -1,422 +1,447 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import {
-  IconChat,
-  IconBriefcase,
-  IconHome,
-  IconCalendar,
-  IconWrench,
-  IconPassport,
   IconArrowRight,
-  IconSparkles,
-  IconShield,
-  IconStar,
-  IconMapPin,
-  IconClock,
-  IconUsers,
+  IconBriefcase,
+  IconCalendar,
+  IconChat,
   IconCheck,
+  IconChevronRight,
+  IconGlobe,
+  IconHome,
+  IconPassport,
+  IconSearch,
+  IconShield,
+  IconSparkles,
+  IconUsers,
+  IconWrench,
 } from "@/components/ui/Icons";
-import { ForumCard } from "@/components/cards/ForumCard";
-import { JobCard } from "@/components/cards/JobCard";
-import { EventCard } from "@/components/cards/EventCard";
 import { Avatar } from "@/components/ui/Avatar";
+import { ForumCard } from "@/components/cards/ForumCard";
 import { forumThreads } from "@/lib/data/forums";
-import { jobs } from "@/lib/data/jobs";
-import { events } from "@/lib/data/events";
 
-const featureCards = [
-  {
-    href: "/forums",
-    label: "Forum",
-    desc: "Tanya jawab & diskusi",
-    icon: IconChat,
-    color: "bg-blue-50 text-blue-600",
-  },
-  {
-    href: "/jobs",
-    label: "Lowongan Kerja",
-    desc: "Karir di Malaysia",
-    icon: IconBriefcase,
-    color: "bg-brand-50 text-brand-600",
-  },
-  {
-    href: "/housing",
-    label: "Properti",
-    desc: "Kos, apartemen, rumah",
-    icon: IconHome,
-    color: "bg-purple-50 text-purple-600",
-  },
-  {
-    href: "/events",
-    label: "Acara",
-    desc: "Meetup komunitas",
-    icon: IconCalendar,
-    color: "bg-accent-50 text-accent-600",
-  },
-  {
-    href: "/services",
-    label: "Layanan",
-    desc: "Direktori terpercaya",
-    icon: IconWrench,
-    color: "bg-emerald-50 text-emerald-600",
-  },
+const journeys = [
   {
     href: "/visa",
-    label: "Panduan Visa",
-    desc: "Imigrasi & dokumen",
+    label: "Urus visa & dokumen",
+    desc: "Pahami pilihan dan persiapannya",
     icon: IconPassport,
     color: "bg-rose-50 text-rose-600",
   },
+  {
+    href: "/jobs",
+    label: "Cari peluang kerja",
+    desc: "Temukan karier yang relevan",
+    icon: IconBriefcase,
+    color: "bg-brand-50 text-brand-700",
+  },
+  {
+    href: "/housing",
+    label: "Temukan tempat tinggal",
+    desc: "Kos, apartemen, atau roommate",
+    icon: IconHome,
+    color: "bg-violet-50 text-violet-600",
+  },
+  {
+    href: "/forums",
+    label: "Tanya komunitas",
+    desc: "Dapatkan jawaban dari pengalaman nyata",
+    icon: IconChat,
+    color: "bg-blue-50 text-blue-600",
+  },
 ];
 
-const stats = [
-  { value: "12,000+", label: "Anggota aktif" },
-  { value: "1,200+", label: "Lowongan terdaftar" },
-  { value: "350+", label: "Acara komunitas" },
-  { value: "98%", label: "Kepuasan anggota" },
+const trustPoints = [
+  {
+    icon: IconShield,
+    title: "Lebih aman untuk berbagi",
+    desc: "Panduan komunitas dan fitur pelaporan membantu menjaga ruang diskusi tetap nyaman.",
+  },
+  {
+    icon: IconGlobe,
+    title: "Konteks lokal Malaysia",
+    desc: "Informasi disusun untuk kebutuhan WNI—dari dokumen, karier, hingga kehidupan sehari-hari.",
+  },
+  {
+    icon: IconUsers,
+    title: "Dibangun untuk saling bantu",
+    desc: "Tanyakan hal yang spesifik dan belajar dari pengalaman sesama orang Indonesia.",
+  },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Berkat forum DUTA Connect, proses renew Employment Pass saya jadi jauh lebih mudah. Komunitasnya sangat responsif dan helpful!",
-    name: "Budi Santoso",
-    role: "Software Engineer · Kuala Lumpur",
-    color: "#0d9488",
-    initials: "BS",
-  },
-  {
-    quote:
-      "Saya pindah ke KL untuk kerja dan bingung cari tempat tinggal. Disini ketemu kos yang pas di budget dan banyak teman WNI baru.",
-    name: "Siti Rahmawati",
-    role: "Marketing Specialist · Petaling Jaya",
-    color: "#db2777",
-    initials: "SR",
-  },
-  {
-    quote:
-      "Panduan visanya lengkap banget. Dari EP sampai konversi SIM semua ada step-by-step. Menghemat waktu dan uang konsultan.",
-    name: "Hendra Wijaya",
-    role: "Civil Engineer · Bangsar",
-    color: "#16a34a",
-    initials: "HW",
-  },
+const guideLinks = [
+  { label: "Employment Pass", meta: "Profesional & pekerja terampil" },
+  { label: "Dependent Pass", meta: "Pasangan & keluarga" },
+  { label: "Student Pass", meta: "Pelajar & mahasiswa" },
 ];
 
 export default function HomePage() {
   const featuredThreads = forumThreads.slice(0, 3);
-  const featuredJobs = jobs.slice(0, 4);
-  const upcomingEvents = events
-    .filter((e) => new Date(e.date).getTime() >= Date.now())
-    .slice(0, 3);
 
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden gradient-hero">
-        <div className="container relative grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden bg-[#073d35] text-white">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-30"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 15% 20%, rgba(78,222,176,.35), transparent 28%), radial-gradient(circle at 85% 10%, rgba(249,115,22,.22), transparent 24%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+
+        <div className="container relative grid items-center gap-12 pb-24 pt-14 sm:pt-18 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:pb-28 lg:pt-20">
           <div className="animate-fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/80 px-3 py-1 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur">
-              <IconSparkles className="h-3.5 w-3.5" />
-              Komunitas #1 untuk WNI di Malaysia
-            </div>
-            <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.1] tracking-tight text-ink-900 text-balance sm:text-5xl lg:text-6xl">
-              Selamat datang di{" "}
-              <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                DUTA Connect
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-emerald-100 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" />
               </span>
+              Ruang bersama WNI di Malaysia
+            </div>
+
+            <h1 className="mt-6 max-w-2xl font-display text-[2.7rem] font-extrabold leading-[1.06] tracking-[-0.035em] text-balance sm:text-6xl lg:text-[4rem]">
+              Jalani Malaysia dengan lebih percaya diri.
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">
-              Komunitas orang Indonesia di Malaysia. Temukan informasi visa,
-              pekerjaan, properti, dan teman baru — semua terhimpun dalam satu
-              platform terpercaya.
+            <p className="mt-6 max-w-xl text-base leading-7 text-emerald-50/80 sm:text-lg sm:leading-8">
+              Temukan panduan praktis, peluang, tempat tinggal, dan jawaban dari
+              sesama orang Indonesia—semuanya dalam satu ruang komunitas.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <ButtonLink href="/register" size="lg">
-                Daftar Gratis
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink
+                href="/register"
+                size="lg"
+                className="bg-white text-[#075b4b] shadow-lg shadow-black/10 hover:bg-emerald-50"
+              >
+                Gabung komunitas
                 <IconArrowRight className="h-4.5 w-4.5" />
               </ButtonLink>
-              <ButtonLink href="/forums" variant="outline" size="lg">
-                Jelajahi Forum
+              <ButtonLink
+                href="/forums"
+                variant="outline"
+                size="lg"
+                className="border-white/25 bg-white/5 text-white hover:border-white/40 hover:bg-white/10 hover:text-white"
+              >
+                Jelajahi diskusi
               </ButtonLink>
             </div>
 
-            <dl className="mt-10 grid max-w-lg grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <dt className="font-display text-2xl font-extrabold text-ink-900">
-                    {s.value}
-                  </dt>
-                  <dd className="text-xs font-medium text-ink-500">{s.label}</dd>
-                </div>
-              ))}
-            </dl>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-emerald-50/75">
+              <span className="inline-flex items-center gap-2">
+                <IconCheck className="h-4 w-4 text-emerald-300" /> Akses gratis
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <IconCheck className="h-4 w-4 text-emerald-300" /> Berbahasa Indonesia
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <IconCheck className="h-4 w-4 text-emerald-300" /> Khusus konteks Malaysia
+              </span>
+            </div>
           </div>
 
-          {/* Hero visual */}
-          <div className="relative hidden animate-fade-in lg:block">
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-brand-200/40 to-accent-200/30 blur-2xl" />
-            <div className="relative rounded-3xl border border-white/60 bg-white/70 p-5 shadow-card-hover backdrop-blur">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Avatar initials="RI" color="#dc2626" size="sm" />
-                  <div>
-                    <p className="text-xs font-bold text-ink-800">Komunitas Aktif</p>
-                    <p className="text-[11px] text-ink-400">12,480 anggota online</p>
-                  </div>
+          <div className="relative animate-fade-in lg:pl-4">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.8rem] border border-white/15 bg-emerald-950 shadow-2xl shadow-black/25 sm:aspect-[16/11] lg:aspect-[4/3]">
+              <Image
+                src="/images/community-hero.jpg"
+                alt="Sekelompok orang Indonesia berbincang di sebuah ruang komunitas di Kuala Lumpur"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 54vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#052e28]/70 via-transparent to-transparent" />
+              <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#052e28]/70 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
+                <IconGlobe className="h-3.5 w-3.5 text-emerald-300" />
+                Kuala Lumpur · Malaysia
+              </div>
+            </div>
+
+            <div className="relative -mt-14 ml-5 mr-3 rounded-2xl border border-white/70 bg-white/95 p-4 text-ink-900 shadow-xl shadow-black/15 backdrop-blur-md sm:ml-auto sm:mr-6 sm:max-w-md sm:p-5">
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-2" aria-hidden="true">
+                  <Avatar initials="BS" color="#0d9488" size="sm" ring />
+                  <Avatar initials="SR" color="#db2777" size="sm" ring />
+                  <Avatar initials="HW" color="#2563eb" size="sm" ring />
                 </div>
-                <Badge tone="green">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Live
-                </Badge>
-              </div>
-
-              <div className="mt-4 space-y-3">
-                {[
-                  { who: "Budi", what: "membuat thread: Tips renew EP 2025", color: "#0d9488", initials: "BS" },
-                  { who: "Siti", what: "mendaftar acara Halal Bihalal", color: "#db2777", initials: "SR" },
-                  { who: "Andi", what: "melamar Software Engineer di TechCorp", color: "#2563eb", initials: "AP" },
-                ].map((a, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 rounded-xl border border-ink-100 bg-white/80 p-3"
-                  >
-                    <Avatar initials={a.initials} color={a.color} size="sm" />
-                    <p className="text-xs text-ink-600">
-                      <span className="font-bold text-ink-900">{a.who}</span> {a.what}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                {featureCards.slice(0, 3).map((f) => {
-                  const Icon = f.icon;
-                  return (
-                    <Link
-                      key={f.href}
-                      href={f.href}
-                      className="flex flex-col items-center gap-1.5 rounded-xl border border-ink-100 bg-white/70 p-3 text-center transition-colors hover:border-brand-300 hover:bg-brand-50"
-                    >
-                      <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${f.color}`}>
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span className="text-[11px] font-semibold text-ink-700">{f.label}</span>
-                    </Link>
-                  );
-                })}
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-ink-900">
+                    Ada tempat untuk setiap pertanyaan
+                  </p>
+                  <p className="mt-0.5 text-xs leading-5 text-ink-500">
+                    Bertanya, berbagi pengalaman, dan tumbuh bersama.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURE NAV */}
-      <section className="container py-14">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {featureCards.map((f) => {
-            const Icon = f.icon;
-            return (
-              <Link
-                key={f.href}
-                href={f.href}
-                className="card card-hover group flex flex-col items-center gap-2 p-5 text-center"
-              >
-                <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${f.color} transition-transform group-hover:scale-110`}>
-                  <Icon className="h-6 w-6" />
-                </span>
-                <span className="font-display text-sm font-bold text-ink-900">{f.label}</span>
-                <span className="text-[11px] text-ink-400">{f.desc}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* FORUMS */}
-      <section className="container py-10">
-        <SectionHeader
-          title="Diskusi Terbaru"
-          subtitle="Bergabung dalam percakapan dengan ribuan WNI lainnya."
-          href="/forums"
-          hrefLabel="Lihat semua diskusi"
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {featuredThreads.map((t) => (
-            <ForumCard key={t.id} thread={t} />
-          ))}
-        </div>
-      </section>
-
-      {/* JOBS */}
-      <section className="bg-ink-100/60 py-14">
-        <div className="container">
-          <SectionHeader
-            title="Lowongan Kerja Pilihan"
-            subtitle="Temukan peluang karir terbaik untuk WNI di Malaysia."
-            href="/jobs"
-            hrefLabel="Semua lowongan"
-          />
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredJobs.map((j) => (
-              <JobCard key={j.id} job={j} />
-            ))}
+      {/* Task navigator */}
+      <section className="relative z-10 -mt-9 px-4 sm:-mt-10 sm:px-6" aria-labelledby="journey-title">
+        <div className="mx-auto max-w-7xl rounded-[1.6rem] border border-ink-200/80 bg-white p-3 shadow-[0_18px_50px_-22px_rgba(15,23,42,0.28)] sm:p-5 lg:p-6">
+          <div className="flex flex-col gap-2 px-2 pb-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">
+                Mulai di sini
+              </p>
+              <h2 id="journey-title" className="mt-1 font-display text-xl font-extrabold tracking-tight text-ink-900 sm:text-2xl">
+                Apa yang Anda butuhkan hari ini?
+              </h2>
+            </div>
+            <Link href="/services" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800">
+              Lihat semua layanan <IconArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-        </div>
-      </section>
 
-      {/* EVENTS */}
-      <section className="container py-14">
-        <SectionHeader
-          title="Acara Mendatang"
-          subtitle="Ikuti acara seru dan perluas jaringan komunitas Anda."
-          href="/events"
-          hrefLabel="Semua acara"
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {upcomingEvents.map((e) => (
-            <EventCard key={e.id} event={e} />
-          ))}
-        </div>
-      </section>
-
-      {/* VALUE PROPS */}
-      <section className="bg-ink-900 py-16 text-white">
-        <div className="container">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Semua yang Anda butuhkan, dalam satu platform
-            </h2>
-            <p className="mt-4 text-ink-300">
-              Dari informasi visa hingga mencari kos dan teman baru. DUTA Connect
-              dirancang khusus untuk kebutuhan orang Indonesia di Malaysia.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: IconShield, title: "Terpercaya", desc: "Info terverifikasi & layanan bersertifikat dari komunitas yang sudah teruji." },
-              { icon: IconUsers, title: "Aktif", desc: "Ribuan anggota aktif siap membantu menjawab pertanyaan Anda setiap hari." },
-              { icon: IconStar, title: "Lengkap", desc: "Visa, kerja, properti, acara, dan layanan — semua dalam satu tempat." },
-              { icon: IconCheck, title: "Gratis", desc: "Bergabung dan akses sebagian besar fitur tanpa biaya apa pun." },
-            ].map((v) => {
-              const Icon = v.icon;
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {journeys.map((item) => {
+              const Icon = item.icon;
               return (
-                <div key={v.title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/20 text-brand-300">
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group flex min-h-[104px] items-center gap-4 rounded-2xl border border-transparent p-3.5 transition-all hover:border-ink-200 hover:bg-ink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/20"
+                >
+                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${item.color}`}>
                     <Icon className="h-6 w-6" />
                   </span>
-                  <h3 className="mt-4 font-display text-lg font-bold">{v.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-300">{v.desc}</p>
-                </div>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-display text-sm font-bold text-ink-900 group-hover:text-brand-700">
+                      {item.label}
+                    </span>
+                    <span className="mt-1 block text-xs leading-5 text-ink-500">
+                      {item.desc}
+                    </span>
+                  </span>
+                  <IconChevronRight className="h-4 w-4 shrink-0 text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
+                </Link>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="container py-16">
-        <SectionHeader
-          title="Kata Mereka"
-          subtitle="Cerita nyata dari anggota komunitas DUTA Connect."
-          center
-        />
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {testimonials.map((t) => (
-            <figure key={t.name} className="card flex flex-col p-6">
-              <div className="flex gap-0.5 text-amber-400">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <IconStar key={i} filled className="h-4 w-4" />
-                ))}
+      {/* Community discussions */}
+      <section className="container py-20 sm:py-24" aria-labelledby="discussions-title">
+        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-12">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-brand-700">
+              <IconChat className="h-4 w-4" /> Dari komunitas
+            </span>
+            <h2 id="discussions-title" className="mt-4 max-w-md font-display text-3xl font-extrabold leading-tight tracking-[-0.025em] text-ink-900 sm:text-4xl">
+              Jawaban yang lahir dari pengalaman nyata.
+            </h2>
+            <p className="mt-4 max-w-md text-base leading-7 text-ink-600">
+              Tidak perlu mencari sendirian. Temukan percakapan tentang hidup,
+              bekerja, dan beradaptasi di Malaysia.
+            </p>
+            <ButtonLink href="/forums" variant="outline" className="mt-7">
+              Lihat semua diskusi
+              <IconArrowRight className="h-4 w-4" />
+            </ButtonLink>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {featuredThreads.map((thread, index) => (
+              <div key={thread.id} className={index === 0 ? "sm:col-span-2" : ""}>
+                <ForumCard thread={thread} />
               </div>
-              <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-700">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3 border-t border-ink-100 pt-4">
-                <Avatar initials={t.initials} color={t.color} size="sm" />
-                <div>
-                  <p className="text-sm font-bold text-ink-900">{t.name}</p>
-                  <p className="text-xs text-ink-500">{t.role}</p>
-                </div>
-              </figcaption>
-            </figure>
-          ))}
+            ))}
+            <Link
+              href="/forums/new"
+              className="group flex min-h-[188px] flex-col justify-between rounded-2xl border border-dashed border-brand-300 bg-brand-50/70 p-5 transition-colors hover:border-brand-500 hover:bg-brand-50"
+            >
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm">
+                <IconSparkles className="h-5 w-5" />
+              </span>
+              <span>
+                <span className="block font-display text-lg font-bold text-ink-900">
+                  Belum menemukan jawabannya?
+                </span>
+                <span className="mt-1.5 block text-sm leading-6 text-ink-600">
+                  Mulai diskusi baru dan tanyakan langsung kepada komunitas.
+                </span>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
+                  Tulis pertanyaan <IconArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="container pb-20">
-        <div className="relative overflow-hidden rounded-3xl brand-gradient px-6 py-14 text-center text-white sm:px-12">
-          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 20% 20%, white 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
-          <div className="relative mx-auto max-w-2xl">
-            <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Gabung Komunitas Hari Ini
-            </h2>
-            <p className="mt-4 text-brand-50">
-              Daftar sekarang gratis dan mulai berinteraksi dengan ribuan WNI di
-              Malaysia. Temukan dukungan, informasi, dan teman baru.
+      {/* Opportunity + guidance */}
+      <section className="bg-[#f1f6f4] py-20 sm:py-24">
+        <div className="container">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">
+              Langkah berikutnya
             </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <ButtonLink
-                href="/register"
-                variant="secondary"
-                size="lg"
-                className="bg-white text-brand-700 hover:bg-brand-50"
-              >
-                Daftar Gratis
-                <IconArrowRight className="h-4.5 w-4.5" />
+            <h2 className="mt-3 font-display text-3xl font-extrabold tracking-[-0.025em] text-ink-900 sm:text-4xl">
+              Dari rencana menjadi lebih pasti.
+            </h2>
+            <p className="mt-4 text-base leading-7 text-ink-600">
+              Jelajahi peluang dan pahami hal penting sebelum mengambil keputusan.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-[#0b2926] p-6 text-white shadow-lg sm:p-8">
+              <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-400/15 blur-2xl" aria-hidden="true" />
+              <div className="relative">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-emerald-300">
+                  <IconBriefcase className="h-6 w-6" />
+                </span>
+                <p className="mt-8 text-xs font-bold uppercase tracking-[0.16em] text-emerald-300">
+                  Karier di Malaysia
+                </p>
+                <h3 className="mt-3 max-w-md font-display text-2xl font-extrabold leading-tight sm:text-3xl">
+                  Temukan pekerjaan yang cocok dengan langkah Anda.
+                </h3>
+                <p className="mt-3 max-w-lg text-sm leading-6 text-emerald-50/70">
+                  Telusuri peluang berdasarkan bidang, lokasi, tipe kerja, dan opsi remote.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {["Teknologi", "Marketing", "Finance", "Hospitality", "Creative"].map((tag) => (
+                    <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-emerald-50/80">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <ButtonLink href="/jobs" className="mt-8 bg-white text-[#075b4b] hover:bg-emerald-50">
+                  Jelajahi lowongan <IconArrowRight className="h-4 w-4" />
+                </ButtonLink>
+              </div>
+            </div>
+
+            <div className="rounded-[1.75rem] border border-ink-200 bg-white p-6 shadow-card sm:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">
+                    Panduan dokumen
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-extrabold leading-tight text-ink-900 sm:text-3xl">
+                    Kenali visa yang sesuai untuk Anda.
+                  </h3>
+                </div>
+                <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 sm:flex">
+                  <IconPassport className="h-6 w-6" />
+                </span>
+              </div>
+              <p className="mt-3 max-w-lg text-sm leading-6 text-ink-600">
+                Mulai dari gambaran umum, lalu selalu konfirmasi persyaratan terbaru dengan sumber resmi.
+              </p>
+
+              <div className="mt-6 divide-y divide-ink-100 border-y border-ink-100">
+                {guideLinks.map((guide) => (
+                  <Link key={guide.label} href="/visa" className="group flex items-center gap-3 py-4">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-50 text-xs font-extrabold text-brand-700">
+                      {guide.label.split(" ").map((word) => word[0]).join("")}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-bold text-ink-900 group-hover:text-brand-700">{guide.label}</span>
+                      <span className="mt-0.5 block text-xs text-ink-500">{guide.meta}</span>
+                    </span>
+                    <IconChevronRight className="h-4 w-4 text-ink-300 group-hover:text-brand-600" />
+                  </Link>
+                ))}
+              </div>
+              <Link href="/visa" className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 hover:text-brand-800">
+                Buka semua panduan <IconArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust */}
+      <section className="container py-20 sm:py-24">
+        <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">
+              Dibangun dengan kepedulian
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight tracking-[-0.025em] text-ink-900 sm:text-4xl">
+              Informasi yang terasa dekat, ruang yang terasa aman.
+            </h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {trustPoints.map((point) => {
+              const Icon = point.icon;
+              return (
+                <div key={point.title}>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-4 font-display text-base font-bold text-ink-900">{point.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-ink-600">{point.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-16 grid gap-4 rounded-[1.75rem] border border-ink-200 bg-ink-50 p-5 sm:grid-cols-3 sm:p-7">
+          {[
+            { icon: IconCalendar, label: "Temukan kegiatan", desc: "Meetup, workshop, dan ruang berjejaring", href: "/events" },
+            { icon: IconWrench, label: "Cari layanan", desc: "Direktori kebutuhan sehari-hari", href: "/services" },
+            { icon: IconSearch, label: "Jelajahi topik", desc: "Mulai dari hal yang paling penting bagi Anda", href: "/forums" },
+          ].map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link key={item.label} href={item.href} className="group flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-white">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-bold text-ink-900 group-hover:text-brand-700">{item.label}</span>
+                  <span className="mt-0.5 block text-xs leading-5 text-ink-500">{item.desc}</span>
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="container pb-20">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[#0a3d35] px-6 py-14 text-center text-white sm:px-12 sm:py-16">
+          <div className="absolute -left-20 -top-24 h-72 w-72 rounded-full bg-brand-400/20 blur-3xl" aria-hidden="true" />
+          <div className="absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-accent-500/15 blur-3xl" aria-hidden="true" />
+          <div className="relative mx-auto max-w-2xl">
+            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-emerald-300">
+              <IconUsers className="h-6 w-6" />
+            </span>
+            <h2 className="mt-6 font-display text-3xl font-extrabold tracking-[-0.025em] sm:text-4xl">
+              Anda tidak harus menjalani semuanya sendiri.
+            </h2>
+            <p className="mt-4 text-base leading-7 text-emerald-50/75">
+              Bergabung, temukan informasi yang Anda butuhkan, dan bantu sesama WNI lewat pengalaman Anda.
+            </p>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <ButtonLink href="/register" size="lg" className="bg-white text-[#075b4b] hover:bg-emerald-50">
+                Daftar gratis <IconArrowRight className="h-4 w-4" />
               </ButtonLink>
-              <ButtonLink
-                href="/visa"
-                size="lg"
-                className="bg-brand-700 text-white hover:bg-brand-800"
-              >
-                Panduan Visa
+              <ButtonLink href="/forums" variant="outline" size="lg" className="border-white/20 bg-white/5 text-white hover:border-white/35 hover:bg-white/10 hover:text-white">
+                Lihat komunitas
               </ButtonLink>
             </div>
           </div>
         </div>
       </section>
     </>
-  );
-}
-
-function SectionHeader({
-  title,
-  subtitle,
-  href,
-  hrefLabel,
-  center,
-}: {
-  title: string;
-  subtitle?: string;
-  href?: string;
-  hrefLabel?: string;
-  center?: boolean;
-}) {
-  return (
-    <div
-      className={
-        center
-          ? "mx-auto max-w-2xl text-center"
-          : "flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
-      }
-    >
-      <div>
-        <h2 className="font-display text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">
-          {title}
-        </h2>
-        {subtitle && <p className="mt-2 text-sm text-ink-500">{subtitle}</p>}
-      </div>
-      {href && (
-        <Link
-          href={href}
-          className="group inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700"
-        >
-          {hrefLabel}
-          <IconArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
-      )}
-    </div>
   );
 }
