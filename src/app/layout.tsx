@@ -1,24 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/plus-jakarta-sans";
 import "./globals.css";
 import { AppProvider } from "@/lib/store";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ToastViewport } from "@/components/ui/Feedback";
-import { AlertTicker } from "@/components/ui/Primitives";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sans",
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-display",
-  weight: ["500", "600", "700", "800"],
-});
 
 const SITE_URL = "https://duta-connect.vercel.app";
 
@@ -29,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s · DUTA Connect",
   },
   description:
-    "Platform komunitas terpadu untuk WNI di Malaysia. Temukan informasi visa, lowongan kerja, properti, acara, dan layanan terpercaya. Terhubung dengan ribuan orang Indonesia.",
+    "Ruang komunitas untuk WNI di Malaysia. Temukan panduan praktis, peluang kerja, tempat tinggal, acara, layanan, dan jawaban dari sesama orang Indonesia.",
   keywords: [
     "WNI Malaysia",
     "komunitas Indonesia Malaysia",
@@ -47,13 +34,13 @@ export const metadata: Metadata = {
     siteName: "DUTA Connect",
     title: "DUTA Connect — Komunitas Orang Indonesia di Malaysia",
     description:
-      "Platform komunitas terpadu untuk WNI di Malaysia. Informasi, pekerjaan, properti, acara, dan layanan — semua dalam satu tempat.",
+      "Panduan praktis, peluang, tempat tinggal, dan jawaban komunitas untuk WNI di Malaysia—semuanya dalam satu ruang bersama.",
   },
   twitter: {
     card: "summary_large_image",
     title: "DUTA Connect — Komunitas WNI di Malaysia",
     description:
-      "Platform komunitas terpadu untuk orang Indonesia di Malaysia.",
+      "Ruang komunitas untuk orang Indonesia yang menjalani hidup di Malaysia.",
   },
   robots: { index: true, follow: true },
 };
@@ -70,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${inter.variable} ${jakarta.variable}`}>
+    <html lang="id">
       <body className="min-h-screen font-sans">
         <AppProvider>
           <a
@@ -79,7 +66,6 @@ export default function RootLayout({
           >
             Lewati ke konten utama
           </a>
-          <AlertTicker />
           <Navbar />
           <main id="main">{children}</main>
           <Footer />
